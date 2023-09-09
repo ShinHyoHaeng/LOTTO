@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta property="og:title" content="로또 번호 생성기" /> 
+    <meta property="og:image" content="./background.jpg" /> 
+    <meta property="og:description" content="이걸로 당첨되면 지분 10%😉" />
+    <link href='https://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        body {
+            background: url("./background.jpg")  no-repeat fixed 0 0 / cover;
+            font-family: 'Lato', sans-serif;
+            color: #212529;
+            text-align: center;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1 {
+            color: #212529
+        }
+
+        p {
+            font-size: 18px;
+            color: #212529
+        }
+
+        hr {
+            display: block;
+            height: 1px;
+            border: 0;
+            width: 50px;
+            border-top: 2px solid #000;
+            margin: 20px auto 25px auto;
+        }
+
+        .circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: rgba(0,0,0,.3);
+            font-size: 24px;
+            color: white;
+            line-height: 118px;
+            text-align: center;
+            border: 2px solid white;
+        }
+
+        .container{
+            background:#fff;
+            border-radius: 8px;
+            color: white;
+            padding: 50px 20px;
+            box-shadow: 2px 3px 7px 2px rgba(0,0,0,.3);
+        }
+    </style>
+
+    <title>로또 번호 생성기</title>
+</head>
+<body>
+
+<div class="container align-middle">
+
+
+
+
+
+<h1 class="mb-2 light text-center">로또 번호 생성기</h1>
+<hr>
+<p>버튼을 누르면 1부터 45까지의 숫자 중 6개의 숫자를 뽑아줍니다.</p>
+
+
+    <div class="row justify-content-center mt-4">
+        <button type="button" class="btn btn-info btn-lg" onclick="myFunction()">번호 생성</button>
+    </div>
+
+
+    <div class="row justify-content-center" id="lotto"></div>
+
+
+</div>
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script>
+    
+    function myFunction() {
+
+    // check if circle element exists, and delete it if it does
+    // prevent duplicate lotto number circles from popping up
+    if (document.getElementsByClassName('circle').length) {
+        const removeElements = (elms) => elms.forEach(el => el.remove());
+        removeElements( document.querySelectorAll(".circle") );
+    }
+
+    let arr = [];
+    while(arr.length < 6){
+        let r = Math.floor(Math.random() * 45) + 1;
+        if(arr.indexOf(r) === -1) arr.push(r);
+        let add = true;
+
+        // looks for duplicate numbers
+        // if duplicate exists it does not add it to the array
+        for(let y = 0; y < 45; y++) {
+            if(arr[y] == arr) {
+                add = false;
+            }
+        }
+
+    }
+
+    //sorts array by ascending order and adds it into new array
+    const sorted = [...arr].sort((a,b)=>a-b);
+
+    // for each element of array it adds it creates an element
+    // and adds the class circle to each each
+    // and then appends it to the lotto element
+
+    sorted.forEach(function (content) {
+        let lotto = document.getElementById("lotto");
+        let circle = document.createElement('span');
+        circle.setAttribute('class', 'circle m-3');
+        circle.textContent = content;
+        lotto.append(circle);
+
+        lotto.style.marginTop = '20px'
+    });
+    }
+</script>
+</body>
+</html>
